@@ -54,3 +54,12 @@
     font-family: 'IranSans' !important;
     word-wrap: break-word;
 }
+
+.toast_message {
+    background: darkblue;
+    color: #fff;
+    font-size: 20px;
+    font-family: 'IranSans' !important;
+    width: 34vw;
+    padding: 30px 20px;
+}
