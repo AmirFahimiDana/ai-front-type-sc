@@ -13,23 +13,19 @@
 .card {
     background-color: #b3b3b3;
     color: #343a40;
-    width: 97%;
-    position: relative;
     border-radius: 0 5px 5px 5px;
-    height: 14%;
     direction: rtl;
-    padding-right: 10px;
-    padding-top: 10px;
-    padding-bottom: 83px;
+    padding: 16px;
     margin-bottom: 20px;
     margin-top: 10px;
     word-wrap: break-word;
     display: flex;
-    flex-flow: column;
+    flex-direction: column;
+    place-content: space-between;
 }
 
 .button_container {
     display: flex;
-    flex-flow: row;
-    justify-content: space-around;
+    justify-content: center;
+    margin-top: 16px;
 }
