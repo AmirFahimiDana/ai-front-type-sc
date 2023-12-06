@@ -9,6 +9,7 @@ import Loader from '../loader';
 import QuestionHistory from './questionHistory';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Microphone from '../../hoc/mic';
 
 const Chat = () => {
     const dispatch = useDispatch();
@@ -55,13 +56,16 @@ const Chat = () => {
                 <div className='col-9'>
                     <div className={styles.container}>
                         <span className={styles.header_tiltle}>پاسخگوی هوشمند</span>
-                        <DataGridComponent props={resultData} />
+                        {/* <DataGridComponent props={resultData} /> */}
                         <div className={styles.input_container}>
                             <form onSubmit={(e) => e.preventDefault()}>
-                                <input className={styles.input_text} type='text' value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
+                                {/* <input className={styles.input_text} type='text' value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
                                 <Loader />
                                 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
-                                <button type='submit' className={styles.submit_button} onClick={addHandler}> <i className="fab fa-telegram-plane" ></i></button>
+                                <button type='submit' className={styles.submit_button} onClick={addHandler}>
+                                    <i className="fab fa-telegram-plane" ></i>
+                                </button> */}
+                                <Microphone />
                                 <ToastContainer
                                     position="top-right"
                                     autoClose={5000}
