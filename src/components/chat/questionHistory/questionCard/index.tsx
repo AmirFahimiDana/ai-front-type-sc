@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styles from '../../questionHistory/questionHistory.module.css'
-import AnimateButton from '../../../button';
+import AnimateButton from '../../../../hoc/button';
 import PopupComponent from '../../../popup';
 
 
@@ -24,7 +24,9 @@ const QuestionCard = (props: any) => {
                     handleClose={togglePopup}
                 />}
 
-                <AnimateButton clickHandler={togglePopup} txt='نمایش کوئری' />
+                <div className={styles.button_container}>
+                    <AnimateButton clickHandler={togglePopup} txt='نمایش کوئری' />
+                </div>
             </div>
 
 
