@@ -4,7 +4,7 @@
 }
 
 .header_tiltle {
-    color: #343a40;
+    color: white;
     text-align: center;
     padding-top: 50px;
     padding-bottom: 50px;
@@ -37,7 +37,7 @@
 }
 
 .input_text {
-    width: 93.65%;
+    width: 94.65%;
     height: 50px;
     background: #b3b3b3;
     border: solid 1px #808080;
@@ -53,17 +53,5 @@
     border-radius: 10px;
     font-family: 'IranSans' !important;
     word-wrap: break-word;
-}
 
-.toast_message {
-    background: darkblue;
-    color: #fff;
-    font-size: 20px;
-    font-family: 'IranSans' !important;
-    width: 34vw;
-    padding: 30px 20px;
-}
-
-.fa-telegram-plane {
-    color: #2BA0D9 !important;
 }
