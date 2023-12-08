@@ -43,10 +43,11 @@ p {
 
 .input_container {
     position: relative;
+    display: flex;
 }
 
 .submit_button {
-    position: absolute;
+    /* position: absolute;
     right: 15px;
     top: 20px;
     bottom: 0px;
@@ -63,7 +64,23 @@ p {
     border-radius: 5px;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
-    border-bottom: 0px;
+    border-bottom: 0px; */
+    position: relative;
+    right: 0;
+    top: 20px;
+    bottom: 0px;
+    color: black;
+    background: transparent;
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    text-align: center;
+    font-weight: regular;
+    margin: 0;
+    margin-left: 5px;
+    padding: 0;
+    border: 1 sold;
+    border-radius: 5px;
 }
 
 .close_container {
