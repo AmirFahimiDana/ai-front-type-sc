@@ -1,41 +1,46 @@
 import React, { useState } from 'react'
 import { ReactMic } from 'react-mic';
-
-
+import styles from './Microphone.module.css'
 
 
 function Microphone() {
     const [record, setRecord] = useState<boolean>(false);
+    const [blob, setBlob] = useState<Blob>();
 
+    const startStopRecording = () => {
+        setRecord(!record);
 
-    const startRecording = () => {
-        setRecord(true);
-    }
-
-    const stopRecording = () => {
-        setRecord(false);
+        if (record) {
+            console.log(blob);
+        }
     }
 
     const onData = (recordedBlob: any) => {
-        console.log('chunk of real-time data is: ', recordedBlob);
+        // console.log('chunk of real-time data is: ', recordedBlob);
     }
 
     const onStop = (recordedBlob: any) => {
         console.log('recordedBlob is: ', recordedBlob);
+        setBlob(recordedBlob);
     }
 
     return (
-        <div>
-            <ReactMic
-                record={record}
-                className="sound-wave"
-                onStop={onStop}
-                onData={onData}
-                strokeColor="#000000"
-                backgroundColor="#FF4081" />
-            <button onClick={startRecording} type="button">Start</button>
-            <button onClick={stopRecording} type="button">Stop</button>
-        </div>
+        <>
+            <div className={styles.container} >
+                <ReactMic
+                    record={record}
+                    className={styles.canvas}
+                    onStop={onStop}
+                    onData={onData}
+                    strokeColor="#000000"
+                    backgroundColor="blue"
+                />
+
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+                <button onClick={startStopRecording} type="button"><i className="fa fa-microphone" style={{ fontStyle: "font-size:36px" }}></i></button>
+
+            </div>
+        </>
     )
 }
 
