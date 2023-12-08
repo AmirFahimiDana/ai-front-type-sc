@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styles from '../../questionHistory/questionHistory.module.css'
 import AnimateButton from '../../../../hoc/button';
-import PopupComponent from '../../../popup';
+import PopupComponent from '../../../../hoc/popup';
 
 
 const QuestionCard = (props: any) => {
