@@ -24,6 +24,15 @@
     width: 77%;
 }
 
+p {
+    margin-bottom: 60px;
+}
+
+.close_container {
+    display: flex;
+    justify-content: end;
+}
+
 .close_icon {
     content: 'x';
     cursor: pointer;
