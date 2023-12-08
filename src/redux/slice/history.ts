@@ -6,6 +6,8 @@ export interface History {
     id: number;
     title: string;
     query: string;
+    isAudio: false;
+    blob?: Blob
 }
 
 const initialState: Array<History> = [
