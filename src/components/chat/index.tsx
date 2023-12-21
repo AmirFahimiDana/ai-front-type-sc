@@ -5,12 +5,12 @@ import DataGridComponent from './dataGrid';
 import axios from 'axios';
 import resultData from '../../services/result2.json'
 import styles from './chat.module.css'
-import Loader from '../loader';
 import QuestionHistory from './questionHistory';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Microphone from '../../hoc/mic';
 import styled from 'styled-components';
+import { getQuery, getData } from '../../services/api';
 
 
 // const StyledContainer = styled(ToastContainer).attrs({
@@ -57,40 +57,82 @@ const Chat = () => {
     const dispatch = useDispatch();
     const history = useSelector(historySelector)
     const [inputValue, setInputValue] = useState<string>("");
-    const [showLoader, setShowLoader] = useState(false);
-
+    // const [resultQuery, setResultQuery] = useState<string>("");
+    const [answerData, setAnswerData] = useState([])
+    const [err, setErr] = useState('');
+    let resultQuery = ""
 
 
     const addHandler = async () => {
-        setShowLoader(true);
         setInputValue("");
 
-        const myPromise = new Promise((resolve) =>
-            fetch("https://jsonplaceholder.typicode.com/posts/1")
-                .then((response) => response.json())
-                .then((json) => setTimeout(() => {
-                    resolve(json)
-                    setShowLoader(false)
-                }, 3000))
-        );
 
-        toast.promise(myPromise, {
-            pending: "در حال گرفتن پاسخ از سرور و ایجاد کوئری",
-            success: "کوئری ایجاد شد و نتیجه آن نمایش داده شده",
-            error: "error",
-        });
+        try {
+            const response = await toast.promise(fetch(`http://192.168.10.41:8000/answer/?param=${inputValue}`, {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json',
+                },
+            }), {
+                pending: "در حال گرفتن پاسخ از سرور و ایجاد کوئری",
+                success: "کوئری ایجاد شد و نتیجه آن نمایش داده شده",
+                error: "مشکل در گرفتن دیتا"
+            });
 
-        //write axios Get result question from API
-        // notify();
+            if (!response.ok) {
+                throw new Error(`Error! status: ${response.status}`);
+            }
+
+            const result = await response.json();
+            resultQuery = JSON.stringify(result.message, null, 4).replaceAll('"', '')
+
+
+
+        } catch (err: any) {
+            setErr(err.message);
+        } finally {
+            //setIsLoading(false);
+        }
+
+
+        try {
+            const response = await fetch(`http://192.168.10.41:8000/result/?param=${resultQuery}`, {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json',
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error(`Error! status: ${response.status}`);
+            }
+
+            const result = await response.json();
+            console.log(result);
+
+
+
+        } catch (err: any) {
+            setErr(err.message);
+
+        } finally {
+            //setIsLoading(false);
+        }
+
+
         dispatch(addHistory({
             id: history.length + 1,
             title: inputValue,
-            query: resultData.content.query,
+            query: resultQuery,
+            // resultData.content.query,
             isAudio: false,
 
         }))
 
+
+
     }
+
 
     return (
         <section className='main-container'>
@@ -105,19 +147,20 @@ const Chat = () => {
                 <div className='col-9'>
                     <div className={styles.container}>
                         <span className={styles.header_tiltle}>پاسخگوی هوشمند</span>
-                        <DataGridComponent props={resultData} />
+                        {/* props={resultData} */}
+                        <DataGridComponent props={answerData} />
                         <div className={styles.input_container}>
                             <form onSubmit={(e) => e.preventDefault()}>
                                 <input className={styles.input_text} type='text' value={inputValue} onChange={(e) => setInputValue(e.target.value)} autoFocus />
-                                {showLoader ? <Loader /> : null}
                                 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
                                 <button type='submit' className={styles.submit_button} onClick={addHandler}>
                                     <i className="fab fa-telegram-plane" ></i>
                                 </button>
                                 <Microphone />
+
                                 <StyledToastContainer
                                     position="top-right"
-                                    autoClose={5000}
+                                    autoClose={3000}
                                     hideProgressBar={false}
                                     newestOnTop={false}
                                     closeOnClick

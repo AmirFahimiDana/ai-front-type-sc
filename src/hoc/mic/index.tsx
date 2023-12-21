@@ -11,7 +11,7 @@ function Microphone() {
         setRecord(!record);
 
         if (record) {
-            console.log(blob);
+            // console.log(blob);
         }
     }
 
@@ -20,7 +20,7 @@ function Microphone() {
     }
 
     const onStop = (recordedBlob: any) => {
-        console.log('recordedBlob is: ', recordedBlob);
+        // console.log('recordedBlob is: ', recordedBlob);
         setBlob(recordedBlob);
     }
 
@@ -37,7 +37,7 @@ function Microphone() {
                 />
 
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-                <button onClick={startStopRecording} type="button"><i className="fa fa-microphone" style={{ fontStyle: "font-size:36px" }}></i></button>
+                <button className={styles.mic_button} onClick={startStopRecording} type="button"><i className="fa fa-microphone" style={{ fontStyle: "font-size:36px" }}></i></button>
 
             </div>
         </>

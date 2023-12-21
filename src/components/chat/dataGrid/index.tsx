@@ -11,14 +11,19 @@ import Pagination from '@mui/material/Pagination';
 import PaginationItem from '@mui/material/PaginationItem';
 
 const DataGridComponent = (props: any) => {
-    let columns = [];
-    let rows = [];
+    let columns: any = [];
+    let rows: any = [];
 
 
-    if (props.props) {
+    if (props.props.data) {
 
-        columns = props.props.content.fields.map((h: any) => ({ field: h.Field_Name, headerName: h.Field_Title, width: 240, editable: false }))
-        rows = props.props.content.data;
+        // columns = props.props.content.fields.map((h: any) => ({ field: h.Field_Name, headerName: h.Field_Title, width: 240, editable: false }))
+
+        //rows = props.props.content.data;
+        // const x = props.props.data.map((c:any) => console.log( c))
+        //    console.log(props.props[0]);
+
+
     }
 
     function customCheckbox(theme: any) {
@@ -101,7 +106,7 @@ const DataGridComponent = (props: any) => {
 
     return (
         <>
-            <div>
+            <div style={{ height: '65vh' }}>
                 <StyledDataGrid
                     rows={rows}
                     columns={columns}

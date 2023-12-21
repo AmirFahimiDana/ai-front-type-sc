@@ -1,6 +1,6 @@
 .container {
     display: flex;
-    justify-content: end;
+    justify-content: start;
 }
 
 .canvas {
@@ -9,11 +9,13 @@
     margin-top: 70px;
 }
 
-button {
-    margin-top: 17px;
+.mic_button {
+    margin-top: 12px;
     margin-right: 2px;
+    margin-left: 9px;
     position: absolute;
-    background: transparent;
+    /* background: transparent; */
     border: solid 1px;
     border-radius: 5px;
+    font-size: 22px;
 }

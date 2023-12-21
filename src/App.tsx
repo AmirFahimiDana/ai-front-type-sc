@@ -12,7 +12,7 @@ import { loadSlim } from "tsparticles-slim"; // if you are going to use `loadSli
 function App() {
 
   const particlesInit = useCallback(async (engine: Engine) => {
-    console.log(engine);
+    //console.log(engine);
 
     // you can initialize the tsParticles instance (engine) here, adding custom shapes or presets
     // this loads the tsparticles package bundle, it's the easiest method for getting everything ready
@@ -22,7 +22,7 @@ function App() {
   }, []);
 
   const particlesLoaded = useCallback(async (container: Container | undefined) => {
-    console.log(container);
+   // console.log(container);
   }, []);
 
 
@@ -47,7 +47,7 @@ function App() {
               },
               onHover: {
                 enable: true,
-                mode: "repulse",
+                mode: "grab",
               },
               resize: true,
             },
@@ -79,7 +79,7 @@ function App() {
                 default: "bounce",
               },
               random: false,
-              speed: 6,
+              speed: 2,
               straight: false,
             },
             number: {
