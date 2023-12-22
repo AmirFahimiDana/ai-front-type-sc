@@ -12,10 +12,16 @@ const QuestionCard = (props: any) => {
         setIsOpen(!isOpen);
     }
 
+    const clickHandler = () => {
+       
+        var message = title
+        props.handleCallback(message)
+    }
+
     return (
         <>
 
-            <div className={styles.card} key={id}>
+            <div className={styles.card} key={id} onClick={clickHandler}>
                 <span>
                     {title}
                 </span>

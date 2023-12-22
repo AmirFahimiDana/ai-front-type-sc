@@ -51,6 +51,8 @@ const StyledToastContainer = styled(ToastContainer).attrs({
   .progress {
     background: var(--toastify-color-success);
   }
+
+  
 `;
 
 const Chat = () => {
@@ -58,9 +60,11 @@ const Chat = () => {
     const history = useSelector(historySelector)
     const [inputValue, setInputValue] = useState<string>("");
     // const [resultQuery, setResultQuery] = useState<string>("");
-    const [answerData, setAnswerData] = useState([])
+    const [answerData, setAnswerData] = useState<any>([])
     const [err, setErr] = useState('');
     let resultQuery = ""
+
+
 
 
     const addHandler = async () => {
@@ -84,55 +88,44 @@ const Chat = () => {
             }
 
             const result = await response.json();
-            resultQuery = JSON.stringify(result.message, null, 4).replaceAll('"', '')
+            resultQuery = JSON.stringify(result.content.query);
+            // const dd: any = [result.data, result.content.fields];
 
-
-
-        } catch (err: any) {
-            setErr(err.message);
-        } finally {
-            //setIsLoading(false);
-        }
-
-
-        try {
-            const response = await fetch(`http://192.168.10.41:8000/result/?param=${resultQuery}`, {
-                method: 'GET',
-                headers: {
-                    Accept: 'application/json',
-                },
-            });
-
-            if (!response.ok) {
-                throw new Error(`Error! status: ${response.status}`);
+            const resultData = result.data
+            for (let index = 0; index < resultData.length; index++) {
+                Object.assign(resultData[index], { id: index + 1 }, { rowId: index + 1 });
             }
 
-            const result = await response.json();
-            console.log(result);
+            const columnFields = result.content.fields.map((c: any) => ({ field: c.Field_Name, headerName: c.Field_Title, width: 240, editable: false }))
+            columnFields.push({ field: "id", headerName: "Id", width: 1, editable: false })
+            columnFields.push({ field: "rowId", headerName: "RowId", width: 1, editable: false })
 
+            const dataAndFields: any = [resultData, columnFields];
+            answerData.push(dataAndFields);
 
+            setAnswerData(answerData)
 
         } catch (err: any) {
             setErr(err.message);
-
         } finally {
             //setIsLoading(false);
         }
-
 
         dispatch(addHistory({
             id: history.length + 1,
             title: inputValue,
             query: resultQuery,
-            // resultData.content.query,
             isAudio: false,
 
         }))
 
-
-
     }
 
+
+    function CallBack(childData: string) {
+        setInputValue(childData)
+      
+    }
 
     return (
         <section className='main-container'>
@@ -140,14 +133,13 @@ const Chat = () => {
                 <div className='col-3'>
                     <div>
                         <aside>
-                            <QuestionHistory />
+                            <QuestionHistory handleCallback={CallBack} />
                         </aside>
                     </div>
                 </div>
                 <div className='col-9'>
                     <div className={styles.container}>
                         <span className={styles.header_tiltle}>پاسخگوی هوشمند</span>
-                        {/* props={resultData} */}
                         <DataGridComponent props={answerData} />
                         <div className={styles.input_container}>
                             <form onSubmit={(e) => e.preventDefault()}>

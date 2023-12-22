@@ -14,7 +14,7 @@ const Question: FC = () => {
         dispatch({ type: QuestionAction.QuestionResult, payload: { questionResult: result2 as IQuestionResult } });
     }, [])
 
-    console.log(state.questionResult?.content.data);
+    // console.log(state.questionResult?.content.data);
 
     return (
         <QuestionContext.Provider
