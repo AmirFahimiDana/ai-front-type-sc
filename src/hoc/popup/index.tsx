@@ -18,11 +18,9 @@ const PopupComponent = (popupProps: any) => {
                     <span className={styles.close_icon} onClick={popupProps.handleClose}>x</span>
                 </div>
                 <p>{popupProps.query}</p>
+                <AnimateButton clickHandler={popupProps.handleClose} txt='تایید کوئری' />
                 <AnimateButton clickHandler={() => {
-                    console.log('تایید');
-                }} txt='تایید کوئری' />
-                <AnimateButton clickHandler={() => {
-                    console.log('عدم تایید');
+                   // console.log('عدم تایید');
                     setShowReason(true);
                 }} txt='عدم تایید کوئری' />
                 {showReason ?

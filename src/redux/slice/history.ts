@@ -7,8 +7,10 @@ export interface History {
     title: string;
     query: string;
     isAudio: false;
-    blob?: Blob
+    blob?: Blob;
+    currentQuestion?: string;
 }
+
 
 const initialState: Array<History> = [
 
@@ -27,6 +29,7 @@ export const historySlice = createSlice({
             // }
             state.push(action.payload);
         },
+       
     },
 });
 export const { addHistory } =
