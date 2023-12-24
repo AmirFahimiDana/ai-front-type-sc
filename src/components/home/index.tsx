@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { examples } from '../../data/example'
 import { IReasearchGate } from '../../interface/iResearchGate'
 import { Link } from 'react-router-dom';
@@ -7,6 +7,13 @@ import { limitation } from '../../data/limitation';
 import { capabilities } from '../../data/capabilities';
 
 const Home = () => {
+    const [items, setItems] = useState([]);
+
+    const clickHandler: any = (val: any) => {
+
+        localStorage.setItem('items', JSON.stringify(val));
+    }
+
     return (
         <>
             <div className={styles.main_container}>
@@ -15,7 +22,9 @@ const Home = () => {
                         <span className={styles.header_span}>Examples</span>
                         {examples.map((data: IReasearchGate) => {
                             return (
-                                <Link to="/chat">{data.title}</Link>
+                                <Link onClick={() => clickHandler(data.title)} to='/chat'>{data.title}</Link>
+
+
                             )
                         })}</section>
 
