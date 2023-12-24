@@ -1,12 +1,12 @@
 import React from 'react'
-import { styled ,alpha} from '@mui/material/styles';
+import { styled, alpha } from '@mui/material/styles';
 import {
     DataGrid,
     gridPageCountSelector,
     gridPageSelector,
     useGridApiContext,
     useGridSelector,
-    gridClasses 
+    gridClasses
 } from '@mui/x-data-grid';
 import Pagination from '@mui/material/Pagination';
 import PaginationItem from '@mui/material/PaginationItem';
@@ -18,7 +18,7 @@ const DataGridComponent = (props: any) => {
     let columns: any = [];
     let rows: any = [];
 
-  
+
     if (props.props.length > 0) {
         columns = props.props[0][1]
         rows = props.props[0][0]
@@ -42,40 +42,40 @@ const DataGridComponent = (props: any) => {
     }
 
     const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
-        enableColumnAutosize : true,
-        // skipHeaderOnAutoSize : false,
+        enableColumnAutosize: true,
+        skipHeaderOnAutoSize: false,
         letterSpacing: 'normal',
         [`& .${gridClasses.row}.even`]: {
             backgroundColor: 'rgba(36,59,85,255)',
             // theme.palette.grey[200],
             '&:hover, &.Mui-hovered': {
-              backgroundColor: alpha(theme.palette.primary.main, ODD_OPACITY),
-              '@media (hover: none)': {
-                backgroundColor: 'transparent',
-              },
+                backgroundColor: alpha(theme.palette.primary.main, ODD_OPACITY),
+                '@media (hover: none)': {
+                    backgroundColor: 'transparent',
+                },
             },
             '&.Mui-selected': {
-              backgroundColor: alpha(
-                theme.palette.primary.main,
-                ODD_OPACITY + theme.palette.action.selectedOpacity,
-              ),
-              '&:hover, &.Mui-hovered': {
                 backgroundColor: alpha(
-                  theme.palette.primary.main,
-                  ODD_OPACITY +
-                    theme.palette.action.selectedOpacity +
-                    theme.palette.action.hoverOpacity,
-                ),
-                // Reset on touch devices, it doesn't add specificity
-                '@media (hover: none)': {
-                  backgroundColor: alpha(
                     theme.palette.primary.main,
                     ODD_OPACITY + theme.palette.action.selectedOpacity,
-                  ),
+                ),
+                '&:hover, &.Mui-hovered': {
+                    backgroundColor: alpha(
+                        theme.palette.primary.main,
+                        ODD_OPACITY +
+                        theme.palette.action.selectedOpacity +
+                        theme.palette.action.hoverOpacity,
+                    ),
+                    // Reset on touch devices, it doesn't add specificity
+                    '@media (hover: none)': {
+                        backgroundColor: alpha(
+                            theme.palette.primary.main,
+                            ODD_OPACITY + theme.palette.action.selectedOpacity,
+                        ),
+                    },
                 },
-              },
             },
-          },
+        },
         '& .MuiDataGrid-columnsContainer': {
             backgroundColor: theme.palette.mode === 'light' ? 'rgba(36,59,85,255)' : 'rgba(36,59,85,255)'
             // '#1d1d1d',
@@ -85,18 +85,30 @@ const DataGridComponent = (props: any) => {
         },
         '& .MuiDataGrid-columnHeader, .MuiDataGrid-cell': {
             borderRight: `1px solid ${theme.palette.mode === 'light' ? 'white' : '#303030'
-          
+
                 }`,
+        },
+        '& .MuiDataGrid-columnHeaderTitle': {
+            backgroundColor: 'rgba(20,30,48,255)'
+        },
+        '& .MuiDataGrid-columnHeadersInner .MuiDataGrid-columnHeadersInner--scrollable': {
+            backgroundColor: 'rgba(20,30,48,255)'
+        },
+        '& .MuiDataGrid-main': {
+            backgroundColor: 'rgba(20,30,48,255)'
+        },
+        '& .MuiTypography-root .MuiTypography-body1 .MuiListItemText-primary': {
+            color: 'black'
         },
         '& .MuiDataGrid-columnsContainer, .MuiDataGrid-cell': {
             borderBottom: `1px solid ${theme.palette.mode === 'light' ? 'white' : '#303030'
-          
+
                 }`,
         },
         '& .MuiDataGrid-cell': {
             color:
                 theme.palette.mode === 'light' ? 'white' : 'rgba(255,255,255,0.65)',
-             
+
         },
         '& .MuiPaginationItem-root': {
             borderRadius: 0,
@@ -144,7 +156,7 @@ const DataGridComponent = (props: any) => {
         <>
             <div style={{ height: '65vh' }}>
                 <StyledDataGrid
-                    
+
                     rows={rows}
                     columns={columns}
                     initialState={{
@@ -154,10 +166,10 @@ const DataGridComponent = (props: any) => {
                             },
                         },
                         columns: {
-                          
+
                             columnVisibilityModel: {
                                 id: false,
-                                rowId:false
+                                rowId: false
                             },
                         },
                     }}
@@ -174,7 +186,7 @@ const DataGridComponent = (props: any) => {
                     }}
                     getRowClassName={(params) =>
                         params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
-                      }
+                    }
                 />
             </div>
         </>
