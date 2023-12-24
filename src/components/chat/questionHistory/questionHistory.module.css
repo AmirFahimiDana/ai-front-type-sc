@@ -1,5 +1,6 @@
 .container {
-    background-color: #808080;
+    /* background-color: #808080; */
+    background-color: rgba(20,30,48,255);
     margin-top: 150px;
     height: 39rem;
     border-radius: 5px;
@@ -12,7 +13,8 @@
 
 
 .card {
-    background-color: #b3b3b3;
+    /* background-color: #b3b3b3; */
+    background-color: rgba(36,59,85,255);
     color: #343a40;
     border-radius: 0 5px 5px 5px;
     direction: rtl;
