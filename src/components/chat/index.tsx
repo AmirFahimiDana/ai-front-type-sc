@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { addHistory, historySelector } from '../../redux/slice/history';
 import DataGridComponent from './dataGrid';
@@ -65,14 +65,17 @@ const Chat = () => {
     let resultQuery = ""
 
 
+  
+
 
 
     const addHandler = async () => {
+        answerData.splice(0, answerData.length)
         setInputValue("");
 
 
         try {
-            const response = await toast.promise(fetch(`http://192.168.10.41:8000/answer/?param=${inputValue}`, {
+            const response = await toast.promise(fetch(`http://192.168.10.41:8000/result/?param=${inputValue}`, {
                 method: 'GET',
                 headers: {
                     Accept: 'application/json',
@@ -83,22 +86,23 @@ const Chat = () => {
                 error: "مشکل در گرفتن دیتا"
             });
 
+
+
             if (!response.ok) {
                 throw new Error(`Error! status: ${response.status}`);
             }
 
             const result = await response.json();
             resultQuery = JSON.stringify(result.content.query);
-            // const dd: any = [result.data, result.content.fields];
 
             const resultData = result.data
             for (let index = 0; index < resultData.length; index++) {
                 Object.assign(resultData[index], { id: index + 1 }, { rowId: index + 1 });
             }
 
-            const columnFields = result.content.fields.map((c: any) => ({ field: c.Field_Name, headerName: c.Field_Title, width: 240, editable: false }))
-            columnFields.push({ field: "id", headerName: "Id", width: 1, editable: false })
-            columnFields.push({ field: "rowId", headerName: "RowId", width: 1, editable: false })
+            const columnFields = result.content.fields.map((c: any) => ({ field: c.Field_Name, headerName: c.Field_Title, editable: false }))
+            columnFields.push({ field: "id", headerName: "Id", editable: false })
+            columnFields.push({ field: "rowId", headerName: "RowId", editable: false })
 
             const dataAndFields: any = [resultData, columnFields];
             answerData.push(dataAndFields);
@@ -124,7 +128,7 @@ const Chat = () => {
 
     function CallBack(childData: string) {
         setInputValue(childData)
-      
+
     }
 
     return (
