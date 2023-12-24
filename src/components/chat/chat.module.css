@@ -1,6 +1,7 @@
 .container {
     display: flex;
     flex-flow: column;
+    width: 100%;
 }
 
 .header_tiltle {
@@ -40,7 +41,7 @@
 .input_text {
     width: 94.65%;
     height: 50px;
-    background:  rgba(20,30,48,255);
+    background: rgba(20, 30, 48, 255);
     border: solid 1px #1797a9;
     border-right: none;
     outline: none;
