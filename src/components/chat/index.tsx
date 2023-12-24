@@ -11,6 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Microphone from '../../hoc/mic';
 import styled from 'styled-components';
 import { getQuery, getData } from '../../services/api';
+import { useParams } from 'react-router-dom';
 
 
 // const StyledContainer = styled(ToastContainer).attrs({
@@ -64,10 +65,15 @@ const Chat = () => {
     const [err, setErr] = useState('');
     let resultQuery = ""
 
+    useEffect(() => {
+        const exampleQuestion: any = localStorage.getItem("items");
+        const questionValue = JSON.parse(exampleQuestion);
 
-  
-
-
+        if (questionValue !== null) {
+            setInputValue(questionValue)
+            localStorage.removeItem("items");
+        }
+    }, [])
 
     const addHandler = async () => {
         answerData.splice(0, answerData.length)
@@ -100,9 +106,9 @@ const Chat = () => {
                 Object.assign(resultData[index], { id: index + 1 }, { rowId: index + 1 });
             }
 
-            const columnFields = result.content.fields.map((c: any) => ({ field: c.Field_Name, headerName: c.Field_Title, editable: false }))
-            columnFields.push({ field: "id", headerName: "Id", editable: false })
-            columnFields.push({ field: "rowId", headerName: "RowId", editable: false })
+            const columnFields = result.content.fields.map((c: any) => ({ field: c.Field_Name, headerName: c.Field_Title, flex: 1, minWidth: 150, editable: false }))
+            columnFields.push({ field: "id", headerName: "Id", flex: 1, minWidth: 150, editable: false })
+            columnFields.push({ field: "rowId", headerName: "RowId", flex: 1, minWidth: 150, editable: false })
 
             const dataAndFields: any = [resultData, columnFields];
             answerData.push(dataAndFields);
