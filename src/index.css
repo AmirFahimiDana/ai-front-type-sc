@@ -8,7 +8,7 @@ body {
   font-family: 'IranSans';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: black;
+  background: linear-gradient(#141e30, #243b55);
 }
 
 
