@@ -18,7 +18,7 @@
 
 .submit_button {
     position: absolute;
-    right: 15px;
+    right: 5px;
     top: 0px;
     bottom: 0px;
     color: #ffffff;
@@ -40,11 +40,11 @@
 .input_text {
     width: 94.65%;
     height: 50px;
-    background: #b3b3b3;
-    border: solid 1px #808080;
+    background:  rgba(20,30,48,255);
+    border: solid 1px #1797a9;
     border-right: none;
     outline: none;
-    color: #343a40;
+    color: #ffffff;
     font-weight: 300;
     padding-right: 60px;
     position: absolute;
