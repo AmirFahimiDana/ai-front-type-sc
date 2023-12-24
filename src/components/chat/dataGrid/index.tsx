@@ -1,14 +1,17 @@
 import React from 'react'
-import { styled } from '@mui/material/styles';
+import { styled ,alpha} from '@mui/material/styles';
 import {
     DataGrid,
     gridPageCountSelector,
     gridPageSelector,
     useGridApiContext,
     useGridSelector,
+    gridClasses 
 } from '@mui/x-data-grid';
 import Pagination from '@mui/material/Pagination';
 import PaginationItem from '@mui/material/PaginationItem';
+
+const ODD_OPACITY = 0.2;
 
 const DataGridComponent = (props: any) => {
 
@@ -30,6 +33,7 @@ const DataGridComponent = (props: any) => {
                 border: `1px solid ${theme.palette.mode === 'light' ? 'white' : 'rgb(67, 67, 67)'
                     }`,
                 borderRadius: 2,
+                display: 'none'
             },
             '& .MuiCheckbox-root svg path': {
                 display: 'none',
@@ -38,24 +42,61 @@ const DataGridComponent = (props: any) => {
     }
 
     const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
+        enableColumnAutosize : true,
+        // skipHeaderOnAutoSize : false,
         letterSpacing: 'normal',
+        [`& .${gridClasses.row}.even`]: {
+            backgroundColor: 'rgba(36,59,85,255)',
+            // theme.palette.grey[200],
+            '&:hover, &.Mui-hovered': {
+              backgroundColor: alpha(theme.palette.primary.main, ODD_OPACITY),
+              '@media (hover: none)': {
+                backgroundColor: 'transparent',
+              },
+            },
+            '&.Mui-selected': {
+              backgroundColor: alpha(
+                theme.palette.primary.main,
+                ODD_OPACITY + theme.palette.action.selectedOpacity,
+              ),
+              '&:hover, &.Mui-hovered': {
+                backgroundColor: alpha(
+                  theme.palette.primary.main,
+                  ODD_OPACITY +
+                    theme.palette.action.selectedOpacity +
+                    theme.palette.action.hoverOpacity,
+                ),
+                // Reset on touch devices, it doesn't add specificity
+                '@media (hover: none)': {
+                  backgroundColor: alpha(
+                    theme.palette.primary.main,
+                    ODD_OPACITY + theme.palette.action.selectedOpacity,
+                  ),
+                },
+              },
+            },
+          },
         '& .MuiDataGrid-columnsContainer': {
-            backgroundColor: theme.palette.mode === 'light' ? 'white' : '#1d1d1d',
+            backgroundColor: theme.palette.mode === 'light' ? 'rgba(36,59,85,255)' : 'rgba(36,59,85,255)'
+            // '#1d1d1d',
         },
         '& .MuiDataGrid-iconSeparator': {
             display: "none"
         },
         '& .MuiDataGrid-columnHeader, .MuiDataGrid-cell': {
             borderRight: `1px solid ${theme.palette.mode === 'light' ? 'white' : '#303030'
+          
                 }`,
         },
         '& .MuiDataGrid-columnsContainer, .MuiDataGrid-cell': {
             borderBottom: `1px solid ${theme.palette.mode === 'light' ? 'white' : '#303030'
+          
                 }`,
         },
         '& .MuiDataGrid-cell': {
             color:
                 theme.palette.mode === 'light' ? 'white' : 'rgba(255,255,255,0.65)',
+             
         },
         '& .MuiPaginationItem-root': {
             borderRadius: 0,
@@ -103,6 +144,7 @@ const DataGridComponent = (props: any) => {
         <>
             <div style={{ height: '65vh' }}>
                 <StyledDataGrid
+                    
                     rows={rows}
                     columns={columns}
                     initialState={{
@@ -119,7 +161,7 @@ const DataGridComponent = (props: any) => {
                             },
                         },
                     }}
-                    checkboxSelection
+                    // checkboxSelection
                     paginationModel={paginationModel}
                     onPaginationModelChange={setPaginationModel}
                     pageSizeOptions={[PAGE_SIZE]}
@@ -130,6 +172,9 @@ const DataGridComponent = (props: any) => {
                     sx={{
                         backgroundColor: "#24292f", color: "white", borderColor: 'white',
                     }}
+                    getRowClassName={(params) =>
+                        params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
+                      }
                 />
             </div>
         </>
