@@ -13,7 +13,7 @@ const QuestionCard = (props: any) => {
     }
 
     const clickHandler = () => {
-       
+
         var message = title
         props.handleCallback(message)
     }
@@ -29,6 +29,7 @@ const QuestionCard = (props: any) => {
                 {isOpen && <PopupComponent
                     query={query}
                     handleClose={togglePopup}
+                    question={title}
                 />}
 
                 <div className={styles.button_container}>
