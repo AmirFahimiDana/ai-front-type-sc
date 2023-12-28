@@ -39,7 +39,6 @@
 }
 
 .input_text {
-    width: 94.65%;
     height: 50px;
     background: rgba(20, 30, 48, 255);
     border: solid 1px #1797a9;
@@ -56,4 +55,12 @@
     font-family: 'IranSans' !important;
     word-wrap: break-word;
 
+}
+
+.input_max {
+    width: 96.30%;
+}
+
+.input_min {
+    width: 96.00%;
 }

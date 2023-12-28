@@ -22,7 +22,7 @@ function App() {
   }, []);
 
   const particlesLoaded = useCallback(async (container: Container | undefined) => {
-   // console.log(container);
+    // console.log(container);
   }, []);
 
 
@@ -42,7 +42,7 @@ function App() {
           interactivity: {
             events: {
               onClick: {
-                enable: true,
+                enable: false,
                 mode: "push",
               },
               onHover: {
@@ -53,7 +53,7 @@ function App() {
             },
             modes: {
               push: {
-                quantity: 4,
+                quantity: 8,
               },
               repulse: {
                 distance: 200,

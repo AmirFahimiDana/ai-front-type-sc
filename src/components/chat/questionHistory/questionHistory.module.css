@@ -3,14 +3,28 @@
     background-color: rgba(20, 30, 48, 255);
     margin-top: 150px;
     height: 39rem;
+    border: solid 1px #1797a9;
     border-radius: 5px;
     padding: 15px 25px;
     display: flex;
     flex-flow: column;
     overflow: scroll;
     overflow-x: hidden;
+    opacity: 0.9;
+    border-style: outset;
+
 }
 
+
+.close {
+    width: 20px;
+}
+
+.toggle_button {
+    width: 35px;
+    height: 28px;
+    align-self: flex-end;
+}
 
 .card {
     /* background-color: #b3b3b3; */

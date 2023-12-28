@@ -21,7 +21,7 @@ const QuestionCard = (props: any) => {
     return (
         <>
 
-            <div className={styles.card} key={id} onClick={clickHandler}>
+            <div id='questionCard' className={styles.card} key={id} onClick={clickHandler}>
                 <span>
                     {title}
                 </span>
