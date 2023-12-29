@@ -5,7 +5,7 @@ import DataGridComponent from './dataGrid';
 import result2 from '../../services/result2.json'
 import styles from './chat.module.css'
 import QuestionHistory from './questionHistory';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Microphone from '../../hoc/mic';
 import styled from 'styled-components';
@@ -77,34 +77,41 @@ const Chat = () => {
 
 
         try {
-            // const response = await toast.promise(fetch(`http://192.168.10.41:8000/result/?param=${inputValue}`, {
-            //     method: 'GET',
-            //     headers: {
-            //         Accept: 'application/json',
-            //     },
-            // }), {
-            //     pending: "در حال گرفتن پاسخ از سرور و ایجاد کوئری",
-            //     success: "کوئری ایجاد شد و نتیجه آن نمایش داده شده",
-            //     error: "مشکل در گرفتن دیتا"
-            // });
+            //گرفتن دیتای نتیجه سوال از سرور
+            const response = await toast.promise(fetch(`http://192.168.10.41:8000/result/?param=${inputValue}`, {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json',
+                },
+            }), {
+                pending: "در حال گرفتن پاسخ از سرور و ایجاد کوئری",
+                success: "کوئری ایجاد شد و نتیجه آن نمایش داده شده",
+                error: "مشکل در گرفتن دیتا"
+            });
 
 
 
-            // if (!response.ok) {
-            //     throw new Error(`Error! status: ${response.status}`);
-            // }
+            if (!response.ok) {
+                throw new Error(`Error! status: ${response.status}`);
+            }
 
-            // const result = await response.json();
-            // resultQuery = JSON.stringify(result.content.query);
+            const result = await response.json();
+            resultQuery = JSON.stringify(result.content.query);
 
-            // const resultData = result.data
-            const resultData = result2.content.data
+            const resultData = result.data
+
+            //گرفتن دیتا از فایل لوکال برای تست
+            //const resultData = result2.content.data
+
             for (let index = 0; index < resultData.length; index++) {
                 Object.assign(resultData[index], { id: index + 1 }, { rowId: index + 1 });
             }
 
-            // const columnFields = result.content.fields.map((c: any) => ({ field: c.Field_Name, headerName: c.Field_Title, flex: 1, minWidth: 150, editable: false }))
-            const columnFields = result2.content.fields.map((c: any) => ({ field: c.Field_Name, headerName: c.Field_Title, flex: 1, minWidth: 150, editable: false }))
+            const columnFields = result.content.fields.map((c: any) => ({ field: c.Field_Name, headerName: c.Field_Title, flex: 1, minWidth: 150, editable: false }))
+
+            //چیدمان فیلد های دیتا گرید بر اساس دیتای لوکال برای تست
+            //const columnFields = result2.content.fields.map((c: any) => ({ field: c.Field_Name, headerName: c.Field_Title, flex: 1, minWidth: 150, editable: false }))
+
             columnFields.push({ field: "id", headerName: "Id", flex: 1, minWidth: 150, editable: false })
             columnFields.push({ field: "rowId", headerName: "RowId", flex: 1, minWidth: 150, editable: false })
 
