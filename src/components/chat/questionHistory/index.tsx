@@ -30,11 +30,11 @@ const QuestionHistory = (props: any) => {
         if (questionCard && isOpen) { questionCard.style.visibility = 'hidden' }
         if (historyContainer && isOpen) { historyContainer.style.overflow = 'hidden'; }
         if (gridContainer && isOpen) { gridContainer.className = 'col-11' }
-        if (sideBar && isOpen) { sideBar.className = 'col-1' }
+        if (sideBar && isOpen) { sideBar.className = 'col-1'; }
         if (inputText && isOpen) { inputText.className = `${styles2.input_text} ${styles2.input_max}` }
 
         if (gridContainer && !isOpen) { gridContainer.className = 'col-10' }
-        if (sideBar && !isOpen) { sideBar.className = 'col-2' }
+        if (sideBar && !isOpen) { sideBar.className = 'col-2'; }
         if (inputText && !isOpen) { inputText.className = `${styles2.input_text} ${styles2.input_min}` }
         if (questionCard && !isOpen) { questionCard.style.visibility = 'visible' }
         if (historyContainer && !isOpen) { historyContainer.style.overflow = 'scroll' }
@@ -44,7 +44,6 @@ const QuestionHistory = (props: any) => {
     return (
         <>
             <div id='historyContainer' className={!isOpen ? `${styles.container} ${styles.close}` : `${styles.container}`}>
-
                 <button className={styles.toggle_button} onClick={clickHandler}>
                     {!isOpen ? <CIcon icon={icon.cilArrowCircleRight} size='sm' /> : <CIcon icon={icon.cilArrowCircleLeft} size='sm' />}
 

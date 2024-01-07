@@ -1,9 +1,12 @@
 // app/store.ts
 import { configureStore } from '@reduxjs/toolkit';
-import historyReducer from './slice/history'
+import historyReducer from './slice/history';
+import popupReducer from './slice/popupSlice';
+
 export const store = configureStore({
     reducer: {
-        historyReducer
+        historyReducer,
+        popupReducer
     },
 });
 export type AppDispatch = typeof store.dispatch;

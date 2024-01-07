@@ -2,13 +2,16 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { addHistory, historySelector } from '../../redux/slice/history';
 import DataGridComponent from './dataGrid';
-import result2 from '../../services/result2.json'
+// import result2 from '../../services/result2.json'
 import styles from './chat.module.css'
 import QuestionHistory from './questionHistory';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Microphone from '../../hoc/mic';
 import styled from 'styled-components';
+import PopupComponent from '../../hoc/popup';
+import { closePopup, openPopup, popupSelector } from '../../redux/slice/popupSlice';
+import { RootState } from '../../redux/store';
 
 // const StyledContainer = styled(ToastContainer).attrs({
 //     // custom props
@@ -53,6 +56,8 @@ const StyledToastContainer = styled(ToastContainer).attrs({
 `;
 
 const Chat = () => {
+    const popupValues = useSelector(popupSelector);
+
     const dispatch = useDispatch();
     const history = useSelector(historySelector)
     const [inputValue, setInputValue] = useState<string>("");
@@ -101,7 +106,7 @@ const Chat = () => {
             const resultData = result.data
 
             //گرفتن دیتا از فایل لوکال برای تست
-            //const resultData = result2.content.data
+            // const resultData = result2.content.data
 
             for (let index = 0; index < resultData.length; index++) {
                 Object.assign(resultData[index], { id: index + 1 }, { rowId: index + 1 });
@@ -110,7 +115,8 @@ const Chat = () => {
             const columnFields = result.content.fields.map((c: any) => ({ field: c.Field_Name, headerName: c.Field_Title, flex: 1, minWidth: 150, editable: false }))
 
             //چیدمان فیلد های دیتا گرید بر اساس دیتای لوکال برای تست
-            //const columnFields = result2.content.fields.map((c: any) => ({ field: c.Field_Name, headerName: c.Field_Title, flex: 1, minWidth: 150, editable: false }))
+            // const columnFields = result2.content.fields.map((c: any) => ({ field: c.Field_Name, headerName: c.Field_Title, flex: 1, minWidth: 150, editable: false }))
+            // resultQuery = result2.content.query;
 
             columnFields.push({ field: "id", headerName: "Id", flex: 1, minWidth: 150, editable: false })
             columnFields.push({ field: "rowId", headerName: "RowId", flex: 1, minWidth: 150, editable: false })
@@ -183,6 +189,7 @@ const Chat = () => {
                             </form>
                         </div>
                     </div>
+                    {popupValues.isOpen && <PopupComponent />}
                 </div>
             </div>
 

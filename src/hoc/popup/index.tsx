@@ -3,15 +3,24 @@ import styles from './popup.module.css'
 import AnimateButton from '../button'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useSelector } from 'react-redux';
+import { closePopup, popupSelector } from '../../redux/slice/popupSlice';
+import { useDispatch } from 'react-redux';
 
-const PopupComponent = (popupProps: any) => {
+const PopupComponent = () => {
     const [showReason, setShowReason] = useState(false);
     const [inputValue, setInputValue] = useState<string>("");
     const [err, setErr] = useState('');
+    const popupValues = useSelector(popupSelector);
+    const dispatchPopup = useDispatch();
+
+    const handleClosePopup = () => {
+        dispatchPopup(closePopup());
+    };
 
     const notValidHandler = async () => {
         try {
-            const response = await toast.promise(fetch(` http://192.168.10.41:8000/valid/?qs=${popupProps.question}&qr=${popupProps.query}t&val=0&exp=${inputValue}`, {
+            const response = await toast.promise(fetch(` http://192.168.10.41:8000/valid/?qs=${popupValues.question.title}&qr=${popupValues.query.query}t&val=0&exp=${inputValue}`, {
 
                 method: 'GET',
                 headers: {
@@ -35,12 +44,12 @@ const PopupComponent = (popupProps: any) => {
             //setIsLoading(false);
         }
 
-        popupProps.handleClose()
+        handleClosePopup()
     }
 
     const validHandler = async () => {
         try {
-            const response = await toast.promise(fetch(`http://192.168.10.41:8000/valid/?qs=${popupProps.question}&qr=${popupProps.query}&val=1`, {
+            const response = await toast.promise(fetch(`http://192.168.10.41:8000/valid/?qs=${popupValues.question.title}&qr=${popupValues.query.query}&val=1`, {
                 method: 'GET',
                 headers: {
                     Accept: 'application/json',
@@ -63,20 +72,20 @@ const PopupComponent = (popupProps: any) => {
             //setIsLoading(false);
         }
 
-        popupProps.handleClose()
 
+        handleClosePopup()
     }
+
 
     return (
         <div className={styles.popup_box}>
             <div className={styles.box}>
                 <div className={styles.close_container}>
-                    <span className={styles.close_icon} onClick={popupProps.handleClose}>x</span>
+                    <span className={styles.close_icon} onClick={handleClosePopup}>x</span>
                 </div>
-                <p>{popupProps.query}</p>
+                <p>{popupValues.query.query}</p>
                 <AnimateButton clickHandler={validHandler} txt='تایید کوئری' />
                 <AnimateButton clickHandler={() => {
-                    // console.log('عدم تایید');
                     setShowReason(true);
                 }} txt='عدم تایید کوئری' />
                 {showReason ?

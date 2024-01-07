@@ -2,7 +2,9 @@
     display: flex;
     flex-flow: column;
     width: 100%;
+
 }
+
 
 .header_tiltle {
     color: white;
